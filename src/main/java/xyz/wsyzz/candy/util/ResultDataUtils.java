@@ -14,4 +14,7 @@ public class ResultDataUtils {
     public static ResultData failure(){
         return new ResultData(ResultEnum.ERROR,null);
     }
+    public static ResultData exception(String msg){
+        return new ResultData(ResultEnum.ERROR.getCode(),msg,null);
+    }
 }

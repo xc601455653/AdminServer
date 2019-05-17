@@ -2,6 +2,7 @@ package xyz.wsyzz.candy.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.wsyzz.candy.constants.Webconstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authentication = request.getHeader("Authentication");
+        //查看请求头是否含有认证信息
+        String authentication = request.getHeader(Webconstant.AUTHENTICATION);
         if(authentication==null){
-            return false;
+            throw new RuntimeException("请求头错误!");
         }
         return true;
     }

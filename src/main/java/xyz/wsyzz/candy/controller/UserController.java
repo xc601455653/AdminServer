@@ -30,6 +30,7 @@ public class UserController {
         return userMapper.selectAll();
     }
 
+
     @GetMapping("login")
     public Object login(String userName,String password){
         Subject subject = SecurityUtils.getSubject();

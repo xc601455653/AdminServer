@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by ${XC} on 2019/5/17.
  */
-public class CorsFilter implements Filter {
+public class CorssFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

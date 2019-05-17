@@ -80,16 +80,16 @@ public class ShiroConfiguration {
 //        //设置未授权跳转的页面
 //        bean.setUnauthorizedUrl("/pages/unauthorized.jsp");
 //        //定义过滤器
-//        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 //        filterChainDefinitionMap.put("/index", "authc");
-//        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/**", "anon");
 //        filterChainDefinitionMap.put("/loginUser", "anon");
 //        filterChainDefinitionMap.put("/admin", "roles[admin]");
 //        filterChainDefinitionMap.put("/edit", "perms[delete]");
 //        filterChainDefinitionMap.put("/druid/**", "anon");
 //        //需要登录访问的资源 , 一般将/**放在最下边
 //        filterChainDefinitionMap.put("/**", "authc");
-//        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
 
