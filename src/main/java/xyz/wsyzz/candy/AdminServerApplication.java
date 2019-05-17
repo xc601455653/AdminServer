@@ -2,10 +2,12 @@ package xyz.wsyzz.candy;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -35,6 +37,10 @@ public class AdminServerApplication {
 				.apis(RequestHandlerSelectors.basePackage("xyz.wsyzz.candy"))
 				.paths(PathSelectors.any())
 				.build();
+	}
+	@Bean
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
 	}
 
 	private ApiInfo apiInfo() {

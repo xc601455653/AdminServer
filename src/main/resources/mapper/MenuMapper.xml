@@ -19,4 +19,14 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_id" property="updateId" jdbcType="BIGINT" />
   </resultMap>
+  <select id="selectByMenuIds" parameterType="arraylist" resultMap="BaseResultMap">
+    SELECT * FROM t_menu
+    <where>
+      <if test="menuIds!=null">
+        <foreach collection="menuIds" open="id in (" close=")" separator="," item="id">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -41,7 +41,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: xyz.wsyzz.candy.entity.vo
+  type-aliases-package: xyz.wsyzz.candy.entity
 #pagehelper
 pagehelper:
     helperDialect: mysql
@@ -54,3 +54,5 @@ logging:
     com:
       example:
         mapper : debug
+
+
