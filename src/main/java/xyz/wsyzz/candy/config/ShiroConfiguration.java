@@ -1,4 +1,4 @@
-package xyz.wsyzz.candy.shiro;
+package xyz.wsyzz.candy.config;
 
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import xyz.wsyzz.candy.shiro.AuthRealm;
 
 import java.util.LinkedHashMap;
 
