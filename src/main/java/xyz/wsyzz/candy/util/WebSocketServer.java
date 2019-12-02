@@ -6,40 +6,41 @@ package xyz.wsyzz.candy.util;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.servlet.http.HttpSession;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import xyz.wsyzz.candy.config.WebSocketConfig;
 
 /**
  * WebSocket服务端示例
  * @author xc
  *
  */
-@ServerEndpoint(value = "/ws/asset")
+@ServerEndpoint(value = "/ws/chat", configurator = WebSocketConfig.class)
 @Component
 public class WebSocketServer {
 
     private static Logger log = LoggerFactory.getLogger(WebSocketServer.class);
-    private static final AtomicInteger OnlineCount = new AtomicInteger(0);
+    private static final AtomicInteger ONLINECOUNT = new AtomicInteger(0);
     // concurrent包的线程安全Set，用来存放每个客户端对应的Session对象。
-    private static CopyOnWriteArraySet<Session> SessionSet = new CopyOnWriteArraySet<Session>();
+    private static CopyOnWriteArraySet<Session> sessionSet = new CopyOnWriteArraySet<>();
 
 
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session) {
-        SessionSet.add(session);
-        int cnt = OnlineCount.incrementAndGet(); // 在线数加1
+    public void onOpen(Session session, EndpointConfig config) {
+        Object o = config.getUserProperties().get(HttpSession.class.getName());
+        Object name = ((HttpSession) o).getAttribute("name");
+        System.out.println(name);
+        sessionSet.add(session);
+        int cnt = ONLINECOUNT.incrementAndGet(); // 在线数加1
         log.info("有连接加入，当前连接数为：{}", cnt);
-        SendMessage(session, "连接成功");
+        sendMessage(session, "连接成功");
     }
 
     /**
@@ -47,8 +48,8 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose(Session session) {
-        SessionSet.remove(session);
-        int cnt = OnlineCount.decrementAndGet();
+        sessionSet.remove(session);
+        int cnt = ONLINECOUNT.decrementAndGet();
         log.info("有连接关闭，当前连接数为：{}", cnt);
     }
 
@@ -56,12 +57,12 @@ public class WebSocketServer {
      * 收到客户端消息后调用的方法
      *
      * @param message
-     *            客户端发送过来的消息
+     * 客户端发送过来的消息
      */
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("来自客户端的消息：{}",message);
-        SendMessage(session, "收到消息，消息内容："+message);
+        sendMessage(session, "收到消息，消息内容："+message);
 
     }
 
@@ -81,7 +82,7 @@ public class WebSocketServer {
      * @param session
      * @param message
      */
-    public static void SendMessage(Session session, String message) {
+    public static void sendMessage(Session session, String message) {
         try {
             session.getBasicRemote().sendText(String.format("%s (From Server，Session ID=%s)",message,session.getId()));
         } catch (IOException e) {
@@ -95,10 +96,10 @@ public class WebSocketServer {
      * @param message
      * @throws IOException
      */
-    public static void BroadCastInfo(String message) throws IOException {
-        for (Session session : SessionSet) {
+    public static void broadCastInfo(String message) throws IOException {
+        for (Session session : sessionSet) {
             if(session.isOpen()){
-                SendMessage(session, message);
+                sendMessage(session, message);
             }
         }
     }
@@ -109,16 +110,16 @@ public class WebSocketServer {
      * @param message
      * @throws IOException
      */
-    public static void SendMessage(String sessionId,String message) throws IOException {
+    public static void sendMessage(String sessionId,String message) throws IOException {
         Session session = null;
-        for (Session s : SessionSet) {
+        for (Session s : sessionSet) {
             if(s.getId().equals(sessionId)){
                 session = s;
                 break;
             }
         }
         if(session!=null){
-            SendMessage(session, message);
+            sendMessage(session, message);
         }
         else{
             log.warn("没有找到你指定ID的会话：{}",sessionId);

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.mapper.UserMapper;
+import xyz.wsyzz.candy.util.ResultDataUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,8 +28,10 @@ public class UserController {
      * @return
      */
     @GetMapping("list")
-    public Object getUserList(){
-        return userMapper.selectAll();
+    public Object getUserList(HttpServletRequest request){
+        request.getSession().setAttribute("name", "tom");
+        System.out.println(request.getSession().getAttribute("name"));
+        return ResultDataUtils.success(userMapper.selectAll());
     }
 
 

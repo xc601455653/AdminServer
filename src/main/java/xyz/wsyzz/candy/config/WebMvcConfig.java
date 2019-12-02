@@ -1,4 +1,4 @@
-package xyz.wsyzz.candy.util;
+package xyz.wsyzz.candy.config;
 
 /**
  * Created by ${XC} on 2019/5/17.
@@ -14,8 +14,8 @@ import xyz.wsyzz.candy.interceptor.MyInterceptor;
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration addInterceptor = registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
-        addInterceptor.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+        //InterceptorRegistration addInterceptor = registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+        //addInterceptor.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

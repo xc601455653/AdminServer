@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xyz.wsyzz.candy.entity.Menu;
 import xyz.wsyzz.candy.entity.Role;
 import xyz.wsyzz.candy.entity.User;
+import xyz.wsyzz.candy.enums.ResultEnum;
 import xyz.wsyzz.candy.service.MenuService;
 import xyz.wsyzz.candy.service.RoleService;
 import xyz.wsyzz.candy.service.UserService;
@@ -89,6 +90,9 @@ public class AuthRealm extends AuthorizingRealm {
         String userName  = usernamePasswordToken.getUsername();
         //根据用户名查询数据库中对应的记录
         User user = userService.findByUsername(userName);
+        if(user==null){
+          throw new RuntimeException(ResultEnum.USERNAME_NOT_FOUND.getMsg());
+        }
         //当前realm对象的name
         String realmName = getName();
         //盐值

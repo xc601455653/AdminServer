@@ -1,14 +1,16 @@
 server:
   port: 8080
+  servlet:
+    context-path: /web
 spring:
   application:
     name: candy
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
   #    url: jdbc:oracle:thin:@192.168.1.98:1521:orcl
-      url: jdbc:mysql://localhost:3306/adminserver?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://cdb-cc4e1c08.cd.tencentcdb.com:10023/adminserver?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
       username: root
-      password: a
+      password: lovecy520
       driver-class-name: com.mysql.cj.jdbc.Driver
   #    driver-class-name: oracle.jdbc.driver.OracleDriver
       # 下面为连接池的补充设置，应用到上面所有数据源中

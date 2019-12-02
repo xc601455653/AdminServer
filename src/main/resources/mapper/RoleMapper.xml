@@ -17,7 +17,7 @@
   <select id="selectByIds" parameterType="arraylist" resultMap="BaseResultMap">
     SELECT * FROM t_role
     <where>
-      <if test="roleIds!=null">
+      <if test="roleIds != null">
         <foreach collection="roleIds" item="id" open="id in (" close=")" separator=",">
           #{id}
         </foreach>
