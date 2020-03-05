@@ -2,12 +2,14 @@ package xyz.wsyzz.candy.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import xyz.wsyzz.candy.entity.Role;
 import xyz.wsyzz.candy.entity.UserRole;
 import xyz.wsyzz.candy.mapper.RoleMapper;
 import xyz.wsyzz.candy.mapper.UserRoleMapper;
 import xyz.wsyzz.candy.service.RoleService;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +29,7 @@ public class RoleServiceImpl implements RoleService {
         UserRole userRole = new UserRole();
         userRole.setUserId(id);
         List<UserRole> select = userRoleMapper.select(userRole);
+        if(CollectionUtils.isEmpty(select)) return new HashSet<>();
         List<Long> roleIds = select.stream().map(e -> e.getRoelId()).collect(Collectors.toList());
         List<Role> roles = roleMapper.selectByIds(roleIds);
         return new HashSet<>(roles);

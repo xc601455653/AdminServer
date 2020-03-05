@@ -17,6 +17,7 @@ import xyz.wsyzz.candy.service.UserService;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -80,19 +81,17 @@ public class AuthRealm extends AuthorizingRealm {
      * 认证登录
      * @param token
      * @return
-     * @throws AuthenticationException
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) {
         //token携带了用户信息
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         //获取前端输入的用户名
         String userName  = usernamePasswordToken.getUsername();
         //根据用户名查询数据库中对应的记录
         User user = userService.findByUsername(userName);
-        if(user==null){
-          throw new RuntimeException(ResultEnum.USERNAME_NOT_FOUND.getMsg());
-        }
+        if(Objects.isNull(user))
+            throw new RuntimeException(ResultEnum.USERNAME_NOT_FOUND.getMsg());
         //当前realm对象的name
         String realmName = getName();
         //盐值

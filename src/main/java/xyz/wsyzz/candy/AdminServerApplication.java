@@ -26,8 +26,7 @@ import xyz.wsyzz.candy.listener.RequestListener;
 @EnableSwagger2
 @SpringBootApplication
 public class AdminServerApplication {
-	@Autowired
-    RequestListener requestListener;
+
 	public static void main(String[] args) {
 		SpringApplication.run(AdminServerApplication.class, args);
 	}
@@ -76,7 +75,7 @@ public class AdminServerApplication {
      * @return
      */
 	@Bean
-    public ServletListenerRegistrationBean<RequestListener> servletListenerRegistrationBean() {
+    public ServletListenerRegistrationBean<RequestListener> servletListenerRegistrationBean(RequestListener requestListener) {
         ServletListenerRegistrationBean<RequestListener> listenerRegistrationBean = new ServletListenerRegistrationBean<RequestListener>();
         listenerRegistrationBean.setListener(requestListener);
         return listenerRegistrationBean;

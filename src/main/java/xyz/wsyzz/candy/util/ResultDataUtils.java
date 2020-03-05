@@ -11,6 +11,9 @@ public class ResultDataUtils {
     public static ResultData success(Object data){
         return new ResultData(ResultEnum.SUCCESS,data);
     }
+    public static ResultData success(){
+        return new ResultData(ResultEnum.SUCCESS,null);
+    }
     public static ResultData failure(){
         return new ResultData(ResultEnum.ERROR,null);
     }

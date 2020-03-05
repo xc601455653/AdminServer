@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import xyz.wsyzz.candy.interceptor.MyInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override

@@ -21,6 +21,15 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfiguration {
+
+    /**
+     * 加密方式
+     */
+    public static final String HASHALGORITHMNAME = "MD5";
+    /**
+     * 加密次数
+     */
+    public static final int HASHITERATIONS = 1024;
     /**
      * 密码校验规则HashedCredentialsMatcher
      * 这个类是为了对密码进行编码的 ,
@@ -32,9 +41,9 @@ public class ShiroConfiguration {
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         //指定加密方式为MD5
-        credentialsMatcher.setHashAlgorithmName("MD5");
+        credentialsMatcher.setHashAlgorithmName(HASHALGORITHMNAME);
         //加密次数
-        credentialsMatcher.setHashIterations(1024);
+        credentialsMatcher.setHashIterations(HASHITERATIONS);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
     }
