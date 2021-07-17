@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.applet.Main;
-
-import java.util.Arrays;
+import java.io.*;
 import java.util.Optional;
 
 
@@ -27,8 +25,14 @@ public class AdminServerApplicationTests {
 	@Autowired
     Environment environment;
 	@Test
-	public void contextLoads() {
-        System.out.println(port + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        Arrays.asList(environment.getActiveProfiles()).forEach(System.out::print);
+	public void contextLoads() throws Exception{
+//        System.out.println(port + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        Arrays.asList(environment.getActiveProfiles()).forEach(System.out::print);
+
+		InputStream inputStream = AdminServerApplicationTests.class.getResourceAsStream("/1.txt");
+		InputStreamReader streamReader = new InputStreamReader(inputStream);
+		BufferedReader bufferedReader = new BufferedReader(streamReader);
+		String s = bufferedReader.readLine();
+		System.out.println(s);
     }
 }

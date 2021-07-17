@@ -1,5 +1,7 @@
 package xyz.wsyzz.candy;
 
+import org.apache.ibatis.mapping.DatabaseIdProvider;
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import xyz.wsyzz.candy.listener.RequestListener;
+
+import java.util.Properties;
 
 
 @MapperScan("xyz.wsyzz.candy.mapper")
@@ -81,5 +85,18 @@ public class AdminServerApplication {
         return listenerRegistrationBean;
     }
 
+	/**
+	 * 多数据库相关配置
+	 * @return
+	 */
+	@Bean
+	public DatabaseIdProvider getDatabaseIdProvider(){
+		DatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
+		Properties properties = new Properties();
+		properties.setProperty("Oracle","oracle");
+		properties.setProperty("MySQL","mysql");
+		databaseIdProvider.setProperties(properties);
+		return databaseIdProvider;
+	}
 
 }

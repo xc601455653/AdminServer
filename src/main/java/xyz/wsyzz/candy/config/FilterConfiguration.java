@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 @Configuration
 public class FilterConfiguration {
 
+    /**
+     * 跨域相关配置
+     * @return
+     */
     @Bean
     public FilterRegistrationBean corssFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
