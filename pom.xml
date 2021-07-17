@@ -110,6 +110,11 @@
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.28.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -117,9 +122,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.mybatis.generator</groupId>
