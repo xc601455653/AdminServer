@@ -23,9 +23,9 @@ spring:
           url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
           username: scott
           password: a
+          driver-class-name: oracle.jdbc.driver.OracleDriver
       druid:
         type: com.alibaba.druid.pool.DruidDataSource
-        #driver-class-name: oracle.jdbc.driver.OracleDriver
         # 下面为连接池的补充设置，应用到上面所有数据源中
         # 初始化大小，最小，最大
         initialSize: 1
