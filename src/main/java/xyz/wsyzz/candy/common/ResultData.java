@@ -8,17 +8,23 @@ import xyz.wsyzz.candy.enums.ResultEnum;
  */
 @Data
 public class ResultData {
+
     private Integer code;
+
     private String msg;
+
     private Object data;
+
     public ResultData(Integer code,String msg,Object data){
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
+
     public ResultData(ResultEnum resultEnum,Object data){
         this.code = resultEnum.getCode();
         this.msg = resultEnum.getMsg();
         this.data = data;
     }
+
 }

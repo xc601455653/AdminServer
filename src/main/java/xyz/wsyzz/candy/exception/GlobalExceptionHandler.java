@@ -1,5 +1,7 @@
 package xyz.wsyzz.candy.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResultData exceptionHandler(HttpServletRequest request, Exception exception) throws Exception {
@@ -21,6 +25,7 @@ public class GlobalExceptionHandler {
     }
 
     private ResultData handleErrorInfo(HttpServletRequest request, String message, Exception exception) {
+        logger.info(message);
         return ResultDataUtils.exception(message);
     }
 }
