@@ -63,9 +63,6 @@ pagehelper:
     params: count=countSql
     auto-dialect: true
     auto-runtime-dialect: true
-#日志
-logging:
-  level:
-    xyz.wsyzz.candy.mapper: info
+
 
 

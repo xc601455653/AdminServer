@@ -2,7 +2,7 @@ package xyz.wsyzz.candy.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.wsyzz.candy.constants.Webconstant;
+import xyz.wsyzz.candy.constant.Webconstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

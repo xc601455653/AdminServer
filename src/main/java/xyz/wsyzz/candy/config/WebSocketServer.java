@@ -1,4 +1,4 @@
-package xyz.wsyzz.candy.util;
+package xyz.wsyzz.candy.config;
 
 /**
  * Created by ${XC} on 2019/5/17.
@@ -12,7 +12,6 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import xyz.wsyzz.candy.config.WebSocketConfig;
 
 /**
  * WebSocket服务端示例

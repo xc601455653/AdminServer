@@ -33,7 +33,7 @@ import javax.mail.internet.MimeUtility;
 /**
  * 使用SMTP协议发送电子邮件
  */
-public class SendEmailCode {
+public class SendEmailUtils {
 
 
     // 邮件发送协议

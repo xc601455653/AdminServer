@@ -1,5 +1,6 @@
 package xyz.wsyzz.candy.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,10 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by ${XC} on 2019/5/17.
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     }
 
     private ResultData handleErrorInfo(HttpServletRequest request, String message, Exception exception) {
-        logger.info(message);
+        log.info(message);
         return ResultDataUtils.exception(message);
     }
 }

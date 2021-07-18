@@ -14,3 +14,6 @@ spring:
       enabled: true
   mvc:
     throw-exception-if-no-handler-found: true
+#日志
+logging:
+  config: classpath:log4j.xml

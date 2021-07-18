@@ -1,4 +1,4 @@
-package xyz.wsyzz.candy.constants;
+package xyz.wsyzz.candy.constant;
 
 /**
  * Created by ${XC} on 2019/5/17.
