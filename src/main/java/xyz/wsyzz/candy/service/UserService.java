@@ -8,6 +8,7 @@ import xyz.wsyzz.candy.entity.model.User;
  */
 @Service
 public interface UserService {
+
     User findByUsername(String userName);
 
     int addUser(User user);

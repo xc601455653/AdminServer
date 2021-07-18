@@ -54,6 +54,7 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    jdbc-type-for-null: 'null'
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: xyz.wsyzz.candy.entity
 #pagehelper

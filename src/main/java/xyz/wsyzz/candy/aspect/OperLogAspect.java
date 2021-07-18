@@ -3,11 +3,10 @@ package xyz.wsyzz.candy.aspect;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -15,6 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 /**
  * Created by ${XC} on 2021/7/18.
  */
+@Slf4j
 @Aspect
 @Component
 public class OperLogAspect {
@@ -30,7 +30,7 @@ public class OperLogAspect {
     /**
      * 设置操作异常切入点记录异常日志 扫描所有controller包下操作
      */
-    @Pointcut("execution(* xyz.wsyzz.candy.controller..*.*(..))")
+    @Pointcut("execution(* xyz.wsyzz.candy.controller.*.*(..))")
     public void operExceptionLogPoinCut() {
 
     }
