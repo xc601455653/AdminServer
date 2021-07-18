@@ -2,8 +2,8 @@ package xyz.wsyzz.candy.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.wsyzz.candy.entity.Menu;
-import xyz.wsyzz.candy.entity.RoleMenu;
+import xyz.wsyzz.candy.entity.model.Menu;
+import xyz.wsyzz.candy.entity.model.RoleMenu;
 import xyz.wsyzz.candy.mapper.MenuMapper;
 import xyz.wsyzz.candy.mapper.RoleMenuMapper;
 import xyz.wsyzz.candy.service.MenuService;

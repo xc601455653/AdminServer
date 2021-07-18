@@ -1,4 +1,4 @@
-package xyz.wsyzz.candy.entity;
+package xyz.wsyzz.candy.entity.model;
 
 import java.io.Serializable;
 import java.util.Date;

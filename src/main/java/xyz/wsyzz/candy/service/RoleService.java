@@ -1,7 +1,7 @@
 package xyz.wsyzz.candy.service;
 
 import org.springframework.stereotype.Service;
-import xyz.wsyzz.candy.entity.Role;
+import xyz.wsyzz.candy.entity.model.Role;
 
 import java.util.Set;
 

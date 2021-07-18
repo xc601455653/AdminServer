@@ -18,7 +18,7 @@ public class FilterConfiguration {
      * @return
      */
     @Bean
-    public FilterRegistrationBean corssFilter() {
+    public FilterRegistrationBean crossFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new CorssFilter());
         filterRegistrationBean.setOrder(BigDecimal.ONE.intValue());

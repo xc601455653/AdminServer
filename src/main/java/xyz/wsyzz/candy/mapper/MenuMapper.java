@@ -1,6 +1,6 @@
 package xyz.wsyzz.candy.mapper;
 
-import xyz.wsyzz.candy.entity.Menu;
+import xyz.wsyzz.candy.entity.model.Menu;
 import xyz.wsyzz.candy.util.BaseMapper;
 
 import java.util.List;

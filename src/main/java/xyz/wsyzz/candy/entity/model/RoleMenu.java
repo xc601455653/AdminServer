@@ -1,11 +1,11 @@
-package xyz.wsyzz.candy.entity;
+package xyz.wsyzz.candy.entity.model;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "t_user_role")
-public class UserRole implements Serializable {
+@Table(name = "t_role_menu")
+public class RoleMenu implements Serializable {
     /**
      * 主键Id
      */
@@ -13,16 +13,16 @@ public class UserRole implements Serializable {
     private Long id;
 
     /**
-     * 用户id
-     */
-    @Column(name = "user_id")
-    private Long userId;
-
-    /**
      * 角色id
      */
-    @Column(name = "roel_id")
-    private Long roelId;
+    @Column(name = "role_id")
+    private Long roleId;
+
+    /**
+     * 菜单Id
+     */
+    @Column(name = "menu_Id")
+    private Long menuId;
 
     /**
      * 创建人id
@@ -57,39 +57,39 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * 获取用户id
-     *
-     * @return user_id - 用户id
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * 设置用户id
-     *
-     * @param userId 用户id
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    /**
      * 获取角色id
      *
-     * @return roel_id - 角色id
+     * @return role_id - 角色id
      */
-    public Long getRoelId() {
-        return roelId;
+    public Long getRoleId() {
+        return roleId;
     }
 
     /**
      * 设置角色id
      *
-     * @param roelId 角色id
+     * @param roleId 角色id
      */
-    public void setRoelId(Long roelId) {
-        this.roelId = roelId;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    /**
+     * 获取菜单Id
+     *
+     * @return menu_Id - 菜单Id
+     */
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    /**
+     * 设置菜单Id
+     *
+     * @param menuId 菜单Id
+     */
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     /**
@@ -135,8 +135,8 @@ public class UserRole implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", roelId=").append(roelId);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", menuId=").append(menuId);
         sb.append(", createId=").append(createId);
         sb.append(", createTime=").append(createTime);
         sb.append("]");

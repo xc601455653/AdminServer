@@ -2,7 +2,7 @@ package xyz.wsyzz.candy.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.wsyzz.candy.entity.User;
+import xyz.wsyzz.candy.entity.model.User;
 import xyz.wsyzz.candy.mapper.UserMapper;
 import xyz.wsyzz.candy.service.UserService;
 

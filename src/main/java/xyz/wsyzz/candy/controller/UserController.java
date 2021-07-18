@@ -7,14 +7,11 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.wsyzz.candy.common.ResultData;
-import xyz.wsyzz.candy.entity.RoleMenu;
-import xyz.wsyzz.candy.entity.User;
+import xyz.wsyzz.candy.entity.model.User;
 import xyz.wsyzz.candy.mapper.RoleMenuMapper;
 import xyz.wsyzz.candy.service.UserService;
 import xyz.wsyzz.candy.shiro.ShiroEncryptUtils;
 import xyz.wsyzz.candy.util.ResultDataUtils;
-
-import java.util.List;
 
 /**
  * Created by ${XC} on 2019/5/1.

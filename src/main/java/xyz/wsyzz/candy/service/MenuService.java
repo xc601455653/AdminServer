@@ -1,7 +1,7 @@
 package xyz.wsyzz.candy.service;
 
 import org.springframework.stereotype.Service;
-import xyz.wsyzz.candy.entity.Menu;
+import xyz.wsyzz.candy.entity.model.Menu;
 
 import java.util.Set;
 
