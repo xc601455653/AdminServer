@@ -6,7 +6,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import xyz.wsyzz.candy.entity.model.Menu;
 import xyz.wsyzz.candy.entity.model.Role;
 import xyz.wsyzz.candy.entity.model.User;
@@ -14,6 +13,7 @@ import xyz.wsyzz.candy.enums.ResultEnum;
 import xyz.wsyzz.candy.service.MenuService;
 import xyz.wsyzz.candy.service.RoleService;
 import xyz.wsyzz.candy.service.UserService;
+import xyz.wsyzz.candy.util.SpringUtil;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,12 +24,7 @@ import java.util.Set;
  * Created by ${XC} on 2019/5/17.
  */
 public class AuthRealm extends AuthorizingRealm {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private MenuService menuService;
+
     /**
      * 为用户授权
      * @param principals
@@ -42,7 +37,7 @@ public class AuthRealm extends AuthorizingRealm {
         //获取前端输入的用户名
         String username = userweb.getUserName();
         //根据前端输入的用户名查询数据库中对应的记录
-        User user = userService.findByUsername(username);
+        User user = SpringUtil.getBean(UserService.class).findByUsername(username);
         //如果数据库中有该用户名对应的记录，就进行授权操作
         if (user != null){
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -51,13 +46,13 @@ public class AuthRealm extends AuthorizingRealm {
             Collection<String> rolesCollection = new HashSet<String>();
             Collection<String> perStringCollection = new HashSet<String>();
             //获取user的Role的set集合
-            Set<Role> roles = roleService.getRolesByUserId(user.getId());
+            Set<Role> roles = SpringUtil.getBean(RoleService.class).getRolesByUserId(user.getId());
             //遍历集合
             for (Role role : roles){
                 //将每一个role的name装进collection集合
                 rolesCollection.add(role.getRoleName());
                 //获取每一个Role的permission的set集合
-                Set<Menu> menus = menuService.getMenusByRoleId(role.getId());
+                Set<Menu> menus = SpringUtil.getBean(MenuService.class).getMenusByRoleId(role.getId());
                 //遍历集合
                 for (Menu menu : menus){
                     //将每一个permission的name装进collection集合
@@ -89,7 +84,7 @@ public class AuthRealm extends AuthorizingRealm {
         //获取前端输入的用户名
         String userName  = usernamePasswordToken.getUsername();
         //根据用户名查询数据库中对应的记录
-        User user = userService.findByUsername(userName);
+        User user = SpringUtil.getBean(UserService.class).findByUsername(userName);
         if(Objects.isNull(user))
             throw new RuntimeException(ResultEnum.USERNAME_NOT_FOUND.getMsg());
         //当前realm对象的name
@@ -101,4 +96,5 @@ public class AuthRealm extends AuthorizingRealm {
                 credentialsSalt, realmName);
         return authcInfo;
     }
+
 }
