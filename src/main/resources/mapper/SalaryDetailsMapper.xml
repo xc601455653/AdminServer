@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.wsyzz.candy.mapper.SalaryDetailsMapper">
+  <resultMap id="BaseResultMap" type="xyz.wsyzz.candy.entity.model.SalaryDetails">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="to_company" jdbcType="VARCHAR" property="toCompany" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="development_flag" jdbcType="VARCHAR" property="developmentFlag" />
+    <result column="base_salary" jdbcType="DECIMAL" property="baseSalary" />
+    <result column="curr_mon_weekdays" jdbcType="VARCHAR" property="currMonWeekdays" />
+    <result column="trial_salary" jdbcType="DECIMAL" property="trialSalary" />
+    <result column="regular_date" jdbcType="INTEGER" property="regularDate" />
+    <result column="curr_mon_trialday" jdbcType="INTEGER" property="currMonTrialday" />
+    <result column="regular_salary" jdbcType="DECIMAL" property="regularSalary" />
+    <result column="curr_mon_regularday" jdbcType="INTEGER" property="currMonRegularday" />
+    <result column="overtime_one" jdbcType="DOUBLE" property="overtimeOne" />
+    <result column="overtime_onemore" jdbcType="DOUBLE" property="overtimeOnemore" />
+    <result column="overtime_two" jdbcType="DOUBLE" property="overtimeTwo" />
+    <result column="overtime_three" jdbcType="DOUBLE" property="overtimeThree" />
+    <result column="overtime_reimburse" jdbcType="DECIMAL" property="overtimeReimburse" />
+    <result column="recruits_num" jdbcType="INTEGER" property="recruitsNum" />
+    <result column="hs_extra_hours" jdbcType="INTEGER" property="hsExtraHours" />
+    <result column="hs_extra_cost" jdbcType="DECIMAL" property="hsExtraCost" />
+    <result column="other_send" jdbcType="DECIMAL" property="otherSend" />
+    <result column="attendance_deduction" jdbcType="DECIMAL" property="attendanceDeduction" />
+    <result column="union_dues" jdbcType="DECIMAL" property="unionDues" />
+    <result column="other_deductions" jdbcType="DECIMAL" property="otherDeductions" />
+    <result column="wages_payable" jdbcType="DECIMAL" property="wagesPayable" />
+    <result column="endowment_insurance" jdbcType="DECIMAL" property="endowmentInsurance" />
+    <result column="medical_insurance" jdbcType="DECIMAL" property="medicalInsurance" />
+    <result column="unemployment_insurance" jdbcType="DECIMAL" property="unemploymentInsurance" />
+    <result column="endowment_company" jdbcType="DECIMAL" property="endowmentCompany" />
+    <result column="medical_company" jdbcType="DECIMAL" property="medicalCompany" />
+    <result column="unemployment_company" jdbcType="DECIMAL" property="unemploymentCompany" />
+    <result column="Industrial_company" jdbcType="VARCHAR" property="industrialCompany" />
+    <result column="maternity_company" jdbcType="VARCHAR" property="maternityCompany" />
+    <result column="serious_company" jdbcType="VARCHAR" property="seriousCompany" />
+    <result column="handicap_company" jdbcType="VARCHAR" property="handicapCompany" />
+    <result column="commfund_company" jdbcType="DECIMAL" property="commfundCompany" />
+    <result column="five_one_company" jdbcType="DECIMAL" property="fiveOneCompany" />
+    <result column="commfund" jdbcType="DECIMAL" property="commfund" />
+    <result column="social_security_count" jdbcType="DECIMAL" property="socialSecurityCount" />
+    <result column="self_tax" jdbcType="DECIMAL" property="selfTax" />
+    <result column="net_salary" jdbcType="DECIMAL" property="netSalary" />
+    <result column="other_salary" jdbcType="DECIMAL" property="otherSalary" />
+    <result column="cumulative_absence" jdbcType="DOUBLE" property="cumulativeAbsence" />
+    <result column="sick_leave" jdbcType="DOUBLE" property="sickLeave" />
+    <result column="compassionate_leave" jdbcType="DOUBLE" property="compassionateLeave" />
+    <result column="annual_leave" jdbcType="DOUBLE" property="annualLeave" />
+    <result column="compensatory_leave" jdbcType="DOUBLE" property="compensatoryLeave" />
+    <result column="maternity_leave" jdbcType="DOUBLE" property="maternityLeave" />
+    <result column="marriage_holiday" jdbcType="DOUBLE" property="marriageHoliday" />
+    <result column="not_employed" jdbcType="DOUBLE" property="notEmployed" />
+    <result column="leave_office" jdbcType="DOUBLE" property="leaveOffice" />
+    <result column="sick_salary" jdbcType="DECIMAL" property="sickSalary" />
+    <result column="compassionate_salary" jdbcType="DECIMAL" property="compassionateSalary" />
+    <result column="not_emp_salary" jdbcType="DECIMAL" property="notEmpSalary" />
+    <result column="leave_office_salary" jdbcType="DECIMAL" property="leaveOfficeSalary" />
+    <result column="subtotal" jdbcType="DECIMAL" property="subtotal" />
+  </resultMap>
+</mapper>

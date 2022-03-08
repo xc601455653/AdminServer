@@ -1,6 +1,9 @@
 package xyz.wsyzz.candy.service;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import xyz.wsyzz.candy.entity.UserQueryTO;
+import java.util.List;
 import xyz.wsyzz.candy.entity.model.User;
 
 /**
@@ -8,8 +11,9 @@ import xyz.wsyzz.candy.entity.model.User;
  */
 @Service
 public interface UserService {
-
     User findByUsername(String userName);
 
     int addUser(User user);
+
+    PageInfo<User> userList(UserQueryTO queryTO);
 }

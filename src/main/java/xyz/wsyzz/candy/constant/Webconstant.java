@@ -5,4 +5,8 @@ package xyz.wsyzz.candy.constant;
  */
 public interface Webconstant {
     String AUTHENTICATION = "Authentication";
+
+    int PAGE_NO = 1;
+
+    int PAGE_SIZE = 20;
 }

@@ -21,6 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResultData exceptionHandler(HttpServletRequest request, Exception exception) throws Exception {
+        exception.printStackTrace();
         return handleErrorInfo(request, exception.getMessage(), exception);
     }
 

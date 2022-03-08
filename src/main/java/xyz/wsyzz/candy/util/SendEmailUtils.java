@@ -3,6 +3,8 @@ package xyz.wsyzz.candy.util;
 /**
  * Created by ${XC} on 2019/5/17.
  */
+import org.springframework.util.StringUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -73,31 +75,37 @@ public class SendEmailUtils {
     /**
      * 发送简单的文本邮件
      */
-    public static boolean sendTextEmail(String toEmail,int code) throws Exception {
+    public static boolean sendTextEmail(String toEmail,String content) {
+        return sendTextEmail(toEmail,content, "15071482539@163.com", "WMRMQTBDUMHBSBWG");
+    }
+
+    public static boolean sendTextEmail(String toEmail,String content, String fromMail, String fromMailPassword) {
         try {
             // 创建Session实例对象
-            Session session1 = Session.getDefaultInstance(props);
+            Session session = Session.getDefaultInstance(props);
 
             // 创建MimeMessage实例对象
-            MimeMessage message = new MimeMessage(session1);
+            MimeMessage message = new MimeMessage(session);
             // 设置发件人
             message.setFrom(new InternetAddress(from));
             // 设置邮件主题
-            message.setSubject("糖果注册验证码");
+            message.setSubject("私人的163邮箱发出来的测试信息");
             // 设置收件人
             message.setRecipient(RecipientType.TO, new InternetAddress(toEmail));
             // 设置发送时间
             message.setSentDate(new Date());
             // 设置纯文本内容为邮件正文
-            message.setText("您的验证码是："+code+"!验证码有效期是10分钟，过期后请重新获取！"
-                    + "糖果学习中心");
+            // message.setText("您的验证码是："+code+"!验证码有效期是10分钟，过期后请重新获取!");
+            if (!StringUtils.isEmpty(content)) {
+                message.setText(content);
+            }
             // 保存并生成最终的邮件内容
             message.saveChanges();
 
             // 获得Transport实例对象
-            Transport transport = session1.getTransport();
+            Transport transport = session.getTransport();
             // 打开连接
-            transport.connect("15071482539", "lovecy520");
+            transport.connect(fromMail, fromMailPassword);
             // 将message对象传递给transport对象，将邮件发送出去
             transport.sendMessage(message, message.getAllRecipients());
             // 关闭连接
@@ -106,13 +114,16 @@ public class SendEmailUtils {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
+            // return false;
         }
     }
 
     public static void main(String[] args) throws Exception {
-        //sendHtmlEmail("601455653@qq.com", 88888);
-        sendTextEmail("601455653@qq.com", 88888);
+        // sendHtmlEmail("601455653@qq.com", 88888);
+        //sendTextEmail("601455653@qq.com", "888888");
+        //sendHtmlWithInnerImageEmail();
+        sendMultipleEmail();
     }
 
     /**
@@ -133,7 +144,66 @@ public class SendEmailUtils {
         // 设置收件人
         message.setRecipients(RecipientType.TO, InternetAddress.parse(to));
         // 设置html内容为邮件正文，指定MIME类型为text/html类型，并指定字符编码为gbk
-        message.setContent("<div style='width: 600px;margin: 0 auto'><h3 style='color:#003E64; text-align:center; '>糖果注册验证码</h3><p style=''>尊敬的用户您好：</p><p style='text-indent: 2em'>您在注册糖果账号，此次的验证码是："+code+",有效期10分钟!如果过期请重新获取。</p><p style='text-align: right; color:#003E64; font-size: 20px;'>糖果学习中心</p></div>","text/html;charset=utf-8");
+        message.setContent("<div><div><div><div><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"1728\" style=\"border-collapse: collapse; width: 1296pt; border-spacing: 0px;\" id=\"ntes_editor_table_10014\">\n" +
+                "<!--StartFragment-->\n" +
+                " <colgroup><col width=\"72\" span=\"24\" style=\"width: 54pt;\" />\n" +
+                " </colgroup><tbody><tr height=\"44\" style=\"height: 33pt;\">\n" +
+                "  <td height=\"44\" class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border: 0.5pt solid windowtext; height: 33pt; width: 54pt;\">序号</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">工号</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">服务公司</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">姓名</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">是否研发</td>\n" +
+                "  <td class=\"xl70\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">基本工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">其它应发&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">考勤扣款&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">工会会费<br />\n" +
+                "    单位：元</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">其它扣款<br />\n" +
+                "    单位:元</td>\n" +
+                "  <td class=\"xl72\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">应发工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl73\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(226, 239, 218); border-left: none; width: 54pt;\">离职补偿金</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">养老险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">医疗险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">失业险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl75\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(255, 192, 0); border-left: none; width: 54pt;\">公积金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl76\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: yellow; border-left: none; width: 54pt;\">社保合计<br />\n" +
+                "    单位：元</td>\n" +
+                "  <td class=\"xl77\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: red; border-left: none; width: 54pt;\">&nbsp;应交个税&nbsp;</td>\n" +
+                "  <td class=\"xl78\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(255, 192, 0); border-left: none; width: 54pt;\">报税工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl79\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; border: none; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; background: red; width: 54pt;\">实发工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border: 0.5pt solid windowtext; width: 54pt;\">其它应发/扣款备注</td>\n" +
+                " </tr>\n" +
+                " <tr height=\"43\" style=\"height: 32.25pt;\">\n" +
+                "  <td height=\"43\" class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-left: 0.5pt solid windowtext; border-image: initial; height: 32.25pt; border-top: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl70\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl72\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl73\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(226, 239, 218); border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                " </tr>\n" +
+                "<!--EndFragment-->\n" +
+                "</tbody></table><div><br /></div></div></div></div></div>","text/html;charset=utf-8");
 
         //设置自定义发件人昵称
         String nick="";
@@ -173,9 +243,9 @@ public class SendEmailUtils {
         // 收件人
         message.setRecipients(RecipientType.TO, InternetAddress.parse(to));
         // 抄送
-        message.setRecipient(RecipientType.CC, new InternetAddress("java_test@sohu.com"));
-        // 密送 (不会在邮件收件人名单中显示出来)
-        message.setRecipient(RecipientType.BCC, new InternetAddress("417067629@qq.com"));
+//        message.setRecipient(RecipientType.CC, new InternetAddress("java_test@sohu.com"));
+//        // 密送 (不会在邮件收件人名单中显示出来)
+//        message.setRecipient(RecipientType.BCC, new InternetAddress("417067629@qq.com"));
         // 发送时间
         message.setSentDate(new Date());
 
@@ -192,18 +262,77 @@ public class SendEmailUtils {
         message.setContent(mp);
 
         // 设置内嵌图片邮件体
-        DataSource ds = new FileDataSource(new File("resource/firefoxlogo.png"));
-        DataHandler dh = new DataHandler(ds);
-        imagePart.setDataHandler(dh);
-        imagePart.setContentID("firefoxlogo.png");  // 设置内容编号,用于其它邮件体引用
+//        DataSource ds = new FileDataSource(new File("resource/firefoxlogo.png"));
+//        DataHandler dh = new DataHandler(ds);
+//        imagePart.setDataHandler(dh);
+//        imagePart.setContentID("firefoxlogo.png");  // 设置内容编号,用于其它邮件体引用
 
         // 创建一个MIME子类型为"alternative"的MimeMultipart对象，并作为前面创建的htmlPart对象的邮件内容
         MimeMultipart htmlMultipart = new MimeMultipart("alternative");
         // 创建一个表示html正文的MimeBodyPart对象
         MimeBodyPart htmlBodypart = new MimeBodyPart();
         // 其中cid=androidlogo.gif是引用邮件内部的图片，即imagePart.setContentID("androidlogo.gif");方法所保存的图片
-        htmlBodypart.setContent("<span style='color:red;'>这是带内嵌图片的HTML邮件哦！！！<img src=\"cid:firefoxlogo.png\" /></span>","text/html;charset=utf-8");
-        htmlMultipart.addBodyPart(htmlBodypart);
+        htmlBodypart.setContent("<div><div><div><div><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"1728\" style=\"border-collapse: collapse; width: 1296pt; border-spacing: 0px;\" id=\"ntes_editor_table_10014\">\n" +
+                "<!--StartFragment-->\n" +
+                " <colgroup><col width=\"72\" span=\"24\" style=\"width: 54pt;\" />\n" +
+                " </colgroup><tbody><tr height=\"44\" style=\"height: 33pt;\">\n" +
+                "  <td height=\"44\" class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border: 0.5pt solid windowtext; height: 33pt; width: 54pt;\">序号</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">工号</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">服务公司</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">姓名</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">是否研发</td>\n" +
+                "  <td class=\"xl70\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">基本工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">其它应发&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">考勤扣款&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">工会会费<br />\n" +
+                "    单位：元</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">其它扣款<br />\n" +
+                "    单位:元</td>\n" +
+                "  <td class=\"xl72\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">应发工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl73\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(226, 239, 218); border-left: none; width: 54pt;\">离职补偿金</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">养老险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">医疗险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">失业险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl75\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(255, 192, 0); border-left: none; width: 54pt;\">公积金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl76\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: yellow; border-left: none; width: 54pt;\">社保合计<br />\n" +
+                "    单位：元</td>\n" +
+                "  <td class=\"xl77\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: red; border-left: none; width: 54pt;\">&nbsp;应交个税&nbsp;</td>\n" +
+                "  <td class=\"xl78\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(255, 192, 0); border-left: none; width: 54pt;\">报税工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl79\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; border: none; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; background: red; width: 54pt;\">实发工资&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 单位：元</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border: 0.5pt solid windowtext; width: 54pt;\">其它应发/扣款备注</td>\n" +
+                " </tr>\n" +
+                " <tr height=\"43\" style=\"height: 32.25pt;\">\n" +
+                "  <td height=\"43\" class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-left: 0.5pt solid windowtext; border-image: initial; height: 32.25pt; border-top: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl70\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl72\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl73\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; background: rgb(226, 239, 218); border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl69\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl71\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl74\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; border-top: 0.5pt solid windowtext; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-left: none; width: 54pt;\">　</td>\n" +
+                "  <td class=\"xl68\" width=\"72\" style=\"padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: middle; font-size: 10pt; font-weight: 700; font-family: 微软雅黑, sans-serif; text-align: center; border-right: 0.5pt solid windowtext; border-bottom: 0.5pt solid windowtext; border-image: initial; border-top: none; border-left: none; width: 54pt;\">　</td>\n" +
+                " </tr>\n" +
+                "<!--EndFragment-->\n" +
+                "</tbody></table><div><br /></div></div></div></div></div>","text/html;charset=utf-8");
+        // htmlMultipart.addBodyPart(htmlBodypart);
         htmlPart.setContent(htmlMultipart);
 
         // 保存并生成最终的邮件内容
@@ -231,18 +360,17 @@ public class SendEmailUtils {
         message.setRecipients(RecipientType.TO,
                 new Address[] {
                         // 参数1：邮箱地址，参数2：姓名（在客户端收件只显示姓名，而不显示邮件地址），参数3：姓名中文字符串编码
-                        new InternetAddress("java_test@sohu.com", "张三_sohu", charset),
-                        new InternetAddress("xyang0917@163.com", "李四_163", charset),
+                        new InternetAddress("601455653@qq.com", "徐灿173", charset),
                 }
         );
         // 设置抄送
-        message.setRecipient(RecipientType.CC, new InternetAddress("xyang0917@gmail.com","王五_gmail",charset));
+        message.setRecipient(RecipientType.CC, new InternetAddress("601455653@qq.com","王五_gmail",charset));
         // 设置密送
-        message.setRecipient(RecipientType.BCC, new InternetAddress("xyang0917@qq.com", "赵六_QQ", charset));
+        message.setRecipient(RecipientType.BCC, new InternetAddress("601455653@qq.com", "赵六_QQ", charset));
         // 设置发送时间
         message.setSentDate(new Date());
         // 设置回复人(收件人回复此邮件时,默认收件人)
-        message.setReplyTo(InternetAddress.parse("\"" + MimeUtility.encodeText("田七") + "\" <417067629@qq.com>"));
+        message.setReplyTo(InternetAddress.parse("\"" + MimeUtility.encodeText("文化") + "\" <601455653@qq.com>"));
         // 设置优先级(1:紧急   3:普通    5:低)
         message.setHeader("X-Priority", "1");
         // 要求阅读回执(收件人阅读邮件时会提示回复发件人,表明邮件已收到,并已阅读)
@@ -259,45 +387,45 @@ public class SendEmailUtils {
         MimeBodyPart mailBody = new MimeBodyPart();
 
         // 将附件和内容添加到邮件当中
-        mailContent.addBodyPart(attach1);
+        //mailContent.addBodyPart(attach1);
         mailContent.addBodyPart(attach2);
         mailContent.addBodyPart(mailBody);
 
         // 附件1(利用jaf框架读取数据源生成邮件体)
-        DataSource ds1 = new FileDataSource("resource/Earth.bmp");
-        DataHandler dh1 = new DataHandler(ds1);
-        attach1.setFileName(MimeUtility.encodeText("Earth.bmp"));
-        attach1.setDataHandler(dh1);
+//        DataSource ds1 = new FileDataSource("resource/Earth.bmp");
+//        DataHandler dh1 = new DataHandler(ds1);
+//        attach1.setFileName(MimeUtility.encodeText("Earth.bmp"));
+//        attach1.setDataHandler(dh1);
 
         // 附件2
-        DataSource ds2 = new FileDataSource("resource/如何学好C语言.txt");
+        DataSource ds2 = new FileDataSource("C:\\Users\\xucan\\Desktop\\candy\\AdminServer\\src\\main\\resources\\banner.txt");
         DataHandler dh2 = new DataHandler(ds2);
         attach2.setDataHandler(dh2);
-        attach2.setFileName(MimeUtility.encodeText("如何学好C语言.txt"));
+        attach2.setFileName(MimeUtility.encodeText("banner.txt"));
 
         // 邮件正文(内嵌图片+html文本)
         MimeMultipart body = new MimeMultipart("related");  //邮件正文也是一个组合体,需要指明组合关系
         mailBody.setContent(body);
-
-        // 邮件正文由html和图片构成
-        MimeBodyPart imgPart = new MimeBodyPart();
+//
+//        // 邮件正文由html和图片构成
+//        MimeBodyPart imgPart = new MimeBodyPart();
         MimeBodyPart htmlPart = new MimeBodyPart();
-        body.addBodyPart(imgPart);
+//        body.addBodyPart(imgPart);
         body.addBodyPart(htmlPart);
-
-        // 正文图片
-        DataSource ds3 = new FileDataSource("resource/firefoxlogo.png");
-        DataHandler dh3 = new DataHandler(ds3);
-        imgPart.setDataHandler(dh3);
-        imgPart.setContentID("firefoxlogo.png");
+//
+//        // 正文图片
+//        DataSource ds3 = new FileDataSource("resource/firefoxlogo.png");
+//        DataHandler dh3 = new DataHandler(ds3);
+//        imgPart.setDataHandler(dh3);
+//        imgPart.setContentID("firefoxlogo.png");
 
         // html邮件内容
         MimeMultipart htmlMultipart = new MimeMultipart("alternative");
-        htmlPart.setContent(htmlMultipart);
+         htmlPart.setContent(htmlMultipart);
         MimeBodyPart htmlContent = new MimeBodyPart();
         htmlContent.setContent(
                 "<span style='color:red'>这是我自己用java mail发送的邮件哦！" +
-                        "<img src='cid:firefoxlogo.png' /></span>"
+                        "<img src='' /></span>"
                 , "text/html;charset=gbk");
         htmlMultipart.addBodyPart(htmlContent);
 
@@ -339,9 +467,9 @@ public class SendEmailUtils {
      */
     static class MyAuthenticator extends Authenticator {
 
-        private String username = "15071482539";
+        private String username = "15071482539@163.com";
 
-        private String password = "lovecy520";
+        private String password = "WMRMQTBDUMHBSBWG";
 
         public MyAuthenticator() {
             super();

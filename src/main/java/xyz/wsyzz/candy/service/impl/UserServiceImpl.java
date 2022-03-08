@@ -1,7 +1,13 @@
 package xyz.wsyzz.candy.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+import xyz.wsyzz.candy.entity.UserQueryTO;
 import xyz.wsyzz.candy.entity.model.User;
 import xyz.wsyzz.candy.mapper.UserMapper;
 import xyz.wsyzz.candy.service.UserService;
@@ -27,5 +33,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public int addUser(User user) {
         return userMapper.insert(user);
+    }
+
+    @Override
+    public PageInfo<User> userList(UserQueryTO queryTO) {
+        Page<User> page = PageHelper.startPage(queryTO.getPageNo(), queryTO.getPageSize());
+        Example example = new Example(User.class);
+        example.and().andEqualTo("id", queryTO.getId()).andLike("userName", "%" + queryTO.getUserName() + "%");
+        List<User> userList = userMapper.selectByExample(example);
+        return page.toPageInfo();
     }
 }

@@ -1,140 +1,168 @@
 package xyz.wsyzz.candy.entity.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "t_user")
+@ApiModel("系统用户信息实体")
 public class User implements Serializable {
     /**
      * 主键ID
      */
     @Id
+    @ApiModelProperty(value = "主键ID")
     private Long id;
 
     /**
      * openId
      */
+    @ApiModelProperty(value = "openId")
     @Column(name = "open_id")
     private String openId;
 
     /**
      * 用户名
      */
+    @ApiModelProperty(value = "用户名")
     @Column(name = "user_name")
     private String userName;
 
     /**
      * 密码
      */
+    @ApiModelProperty(value = "密码")
     private String password;
 
     /**
      * 全名
      */
+    @ApiModelProperty(value = "全名")
     @Column(name = "full_name")
     private String fullName;
 
     /**
      * QQ号
      */
+    @ApiModelProperty(value = "QQ号")
     private String qq;
 
     /**
      * 个人签名
      */
+    @ApiModelProperty(value = "个人签名")
     @Column(name = "user_sign")
     private String userSign;
 
     /**
      * 头像
      */
+    @ApiModelProperty(value = "头像")
     @Column(name = "head_url")
     private String headUrl;
 
     /**
      * 出生日期
      */
+    @ApiModelProperty(value = "出生日期")
     private Date birthday;
 
     /**
      * 性别
      */
+    @ApiModelProperty(value = "性别")
     private Integer sex;
 
     /**
      * 毕业学校
      */
+    @ApiModelProperty(value = "毕业学校")
     private String school;
 
     /**
      * 个人说明
      */
+    @ApiModelProperty(value = "个人说明")
     @Column(name = "user_info")
     private String userInfo;
 
     /**
      * 邮箱
      */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
     /**
      * 手机号码
      */
+    @ApiModelProperty(value = "手机号码")
     @Column(name = "phone_number")
     private String phoneNumber;
 
     /**
      * 座机号
      */
+    @ApiModelProperty(value = "座机号")
     private String tel;
 
     /**
      * 详细地址
      */
+    @ApiModelProperty(value = "详细地址")
     private String address;
 
     /**
      * 省
      */
+    @ApiModelProperty(value = "省")
     private Integer province;
 
     /**
      * 市
      */
+    @ApiModelProperty(value = "市")
     private Integer city;
 
     /**
      * 区
      */
+    @ApiModelProperty(value = "区")
     private Integer area;
 
     /**
      * 状态
      */
+    @ApiModelProperty(value = "状态")
     private Integer status;
 
     /**
      * 创建时间
      */
+    @ApiModelProperty(value = "创建时间")
     @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 创建人
      */
+    @ApiModelProperty(value = "创建人")
     @Column(name = "create_id")
     private Long createId;
 
     /**
      * 更新时间
      */
+    @ApiModelProperty(value = "更新时间")
     @Column(name = "update_time")
     private Date updateTime;
 
     /**
      * 更新人
      */
+    @ApiModelProperty(value = "更新人")
     @Column(name = "update_id")
     private Long updateId;
 
