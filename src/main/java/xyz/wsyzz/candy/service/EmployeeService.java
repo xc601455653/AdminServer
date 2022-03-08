@@ -3,7 +3,10 @@ package xyz.wsyzz.candy.service;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import xyz.wsyzz.candy.entity.model.Employee;
-import xyz.wsyzz.candy.entity.EmployeeQueryTO;
+import xyz.wsyzz.candy.entity.TO.EmployeeQueryTO;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by xucan on 2022/2/26.
@@ -51,4 +54,18 @@ public interface EmployeeService {
      * @return
      */
     Employee selectByPrimaryKey(Integer employeeId);
+
+    /**
+     * 批量新增
+     * @param datalist
+     * @return
+     */
+    int insertEmployeeList(List<Employee> datalist);
+
+    /**
+     * 检查重复的人员名称
+     * @param collect
+     * @return
+     */
+    List<String> checkEmployeeName(Set<String> collect);
 }

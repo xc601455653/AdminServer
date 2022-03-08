@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
-import xyz.wsyzz.candy.entity.SendMailParamTO;
+import xyz.wsyzz.candy.entity.TO.SendMailParamTO;
 import xyz.wsyzz.candy.util.ResultDataUtils;
 import xyz.wsyzz.candy.util.SendEmailUtils;
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
-import xyz.wsyzz.candy.entity.SalaryDetailsQueryTO;
+import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 import xyz.wsyzz.candy.mapper.SalaryDetailsMapper;
 import xyz.wsyzz.candy.service.SalaryDetailsService;
 

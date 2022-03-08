@@ -1,6 +1,5 @@
 package xyz.wsyzz.candy.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.wsyzz.candy.common.ResultData;
 import xyz.wsyzz.candy.constant.Webconstant;
-import xyz.wsyzz.candy.entity.UserQueryTO;
+import xyz.wsyzz.candy.entity.TO.UserQueryTO;
 import xyz.wsyzz.candy.entity.model.User;
 import xyz.wsyzz.candy.service.UserService;
 import xyz.wsyzz.candy.shiro.ShiroEncryptUtils;
 import xyz.wsyzz.candy.util.ResultDataUtils;
-
-import java.math.BigDecimal;
 
 /**
  * Created by ${XC} on 2019/5/1.

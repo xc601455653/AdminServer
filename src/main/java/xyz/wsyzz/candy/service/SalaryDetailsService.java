@@ -3,7 +3,7 @@ package xyz.wsyzz.candy.service;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
-import xyz.wsyzz.candy.entity.SalaryDetailsQueryTO;
+import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 
 /**
  * Created by xucan on 2022/2/26.

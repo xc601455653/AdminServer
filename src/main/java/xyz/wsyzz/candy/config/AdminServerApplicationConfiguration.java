@@ -19,6 +19,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import xyz.wsyzz.candy.listener.RequestListener;
 
+import java.net.InetAddress;
 import java.util.Properties;
 
 /**
@@ -31,14 +32,14 @@ public class AdminServerApplicationConfiguration {
      * @return
      */
     @Bean
-    public Docket api() {
+    public Docket api() throws Exception{
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 // 自行修改为自己的包路径
                 .apis(RequestHandlerSelectors.basePackage("xyz.wsyzz.candy"))
                 .paths(PathSelectors.any())
-                .build();
+                .build().host(InetAddress.getLocalHost().getHostAddress());
     }
 
     /**

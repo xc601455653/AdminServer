@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
 import xyz.wsyzz.candy.constant.Webconstant;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
-import xyz.wsyzz.candy.entity.SalaryDetailsQueryTO;
+import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 import xyz.wsyzz.candy.service.SalaryDetailsService;
 import xyz.wsyzz.candy.util.ResultDataUtils;
 
