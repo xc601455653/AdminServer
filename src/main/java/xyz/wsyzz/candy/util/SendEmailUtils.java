@@ -3,7 +3,9 @@ package xyz.wsyzz.candy.util;
 /**
  * Created by ${XC} on 2019/5/17.
  */
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import xyz.wsyzz.candy.entity.TO.SendMailParamTO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +14,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -31,6 +35,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
+import javax.mail.util.ByteArrayDataSource;
 
 /**
  * 使用SMTP协议发送电子邮件
@@ -62,6 +67,7 @@ public class SendEmailUtils {
     // 初始化连接邮件服务器的会话信息
     private static Properties props = null;
 
+    private final static String CHARSET = "utf-8";
     static {
         props = new Properties();
         props.setProperty("mail.transport.protocol", PROTOCOL);
@@ -459,6 +465,79 @@ public class SendEmailUtils {
         InputStream is = new FileInputStream(eml);
         MimeMessage message = new MimeMessage(session,is);
         //发送邮件
+        Transport.send(message);
+    }
+
+    public static void sendMailByParam(SendMailParamTO sendMailParamTO) throws Exception{
+        // 创建Session实例对象
+        Session session = Session.getInstance(props,new MyAuthenticator());
+        // 创建MimeMessage实例对象
+        MimeMessage message = new MimeMessage(session);
+        // 设置主题
+        message.setSubject(sendMailParamTO.getSubject());
+        // 设置发送人
+        message.setFrom(new InternetAddress(from,from,CHARSET));
+        // 设置收件人
+        if (CollectionUtils.isEmpty(sendMailParamTO.getAddressList())) {
+            throw new RuntimeException("收件人不能为空");
+        }
+        ArrayList<InternetAddress> internetAddresses = new ArrayList<>();
+        List<String> toMailAddressList = sendMailParamTO.getToMailAddressList();
+        for (String address : toMailAddressList) {
+            InternetAddress internetAddress = new InternetAddress(address, address, CHARSET);
+            internetAddresses.add(internetAddress);
+        }
+        message.setRecipients(RecipientType.TO, internetAddresses.toArray(new InternetAddress[internetAddresses.size()]));
+        // 设置抄送
+        ArrayList<InternetAddress> internetAddressesCC = new ArrayList<>();
+        List<String> addressList = sendMailParamTO.getAddressList();
+        for (String address : addressList) {
+            InternetAddress internetAddress = new InternetAddress(address, address, CHARSET);
+            internetAddressesCC.add(internetAddress);
+        }
+        message.setRecipients(RecipientType.CC, internetAddressesCC.toArray(new InternetAddress[internetAddressesCC.size()]));
+        // 设置密送
+        // message.setRecipients(RecipientType.BCC, internetAddressesCC.toArray(new InternetAddress[internetAddressesCC.size()]));
+        // 设置发送时间
+        message.setSentDate(new Date());
+        // 设置回复人(收件人回复此邮件时,默认收件人)
+        message.setReplyTo(new InternetAddress[] { new InternetAddress(from,from,CHARSET) });
+        // 设置优先级(1:紧急   3:普通    5:低)
+        message.setHeader("X-Priority", "3");
+        // 要求阅读回执(收件人阅读邮件时会提示回复发件人,表明邮件已收到,并已阅读)
+        if ("1".equals(sendMailParamTO.getReceiptFlag())) {
+            message.setHeader("Disposition-Notification-To", from);
+        }
+        // 创建一个MIME子类型为"mixed"的MimeMultipart对象，表示这是一封混合组合类型的邮件
+        MimeMultipart mailContent = new MimeMultipart("mixed");
+        message.setContent(mailContent);
+        // 附件
+        MimeBodyPart attach = new MimeBodyPart();
+        // 内容
+        MimeBodyPart mailBody = new MimeBodyPart();
+        // 将附件和内容添加到邮件当中
+        mailContent.addBodyPart(attach);
+        mailContent.addBodyPart(mailBody);
+        // 附件2
+        DataSource ds = new ByteArrayDataSource("我是一个文本附件","text/html;charset=utf-8");
+        DataHandler dh = new DataHandler(ds);
+        attach.setDataHandler(dh);
+        attach.setFileName(MimeUtility.encodeText("banner.txt"));
+        // 邮件正文(内嵌图片+html文本)
+        MimeMultipart body = new MimeMultipart("related");  //邮件正文也是一个组合体,需要指明组合关系
+        mailBody.setContent(body);
+        // 邮件正文由html构成
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        body.addBodyPart(htmlPart);
+        // html邮件内容
+        MimeMultipart htmlMultipart = new MimeMultipart("alternative");
+        htmlPart.setContent(htmlMultipart);
+        MimeBodyPart htmlContent = new MimeBodyPart();
+        htmlContent.setContent(sendMailParamTO.getContent(), "text/html;charset=gbk");
+        htmlMultipart.addBodyPart(htmlContent);
+        // 保存邮件内容修改
+        message.saveChanges();
+        // 发送邮件
         Transport.send(message);
     }
 

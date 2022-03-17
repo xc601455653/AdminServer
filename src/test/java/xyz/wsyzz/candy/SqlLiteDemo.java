@@ -23,11 +23,11 @@ public class SqlLiteDemo {
 //        }
 //        Integer dataRight = null;
 //        System.out.println(dataRight|1);
-        InetAddress localHost = InetAddress.getLocalHost();
-        byte[] address = InetAddress.getLocalHost().getAddress();
-        System.out.println(localHost.getHostName());
-        String username = System.getenv().get("USERNAME");
-        System.out.println(username);
+//        InetAddress localHost = InetAddress.getLocalHost();
+//        byte[] address = InetAddress.getLocalHost().getAddress();
+//        System.out.println(localHost.getHostName());
+//        String username = System.getenv().get("USERNAME");
+//        System.out.println(username);
 //        System.out.println(address);
 //        String s = new String(address,"gbk");
 //        System.out.println(s);

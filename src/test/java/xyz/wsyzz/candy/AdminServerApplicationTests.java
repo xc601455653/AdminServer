@@ -29,10 +29,10 @@ public class AdminServerApplicationTests {
 //        System.out.println(port + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        Arrays.asList(environment.getActiveProfiles()).forEach(System.out::print);
 
-		InputStream inputStream = AdminServerApplicationTests.class.getResourceAsStream("/1.txt");
-		InputStreamReader streamReader = new InputStreamReader(inputStream);
-		BufferedReader bufferedReader = new BufferedReader(streamReader);
-		String s = bufferedReader.readLine();
-		System.out.println(s);
+//		InputStream inputStream = AdminServerApplicationTests.class.getResourceAsStream("/1.txt");
+//		InputStreamReader streamReader = new InputStreamReader(inputStream);
+//		BufferedReader bufferedReader = new BufferedReader(streamReader);
+//		String s = bufferedReader.readLine();
+//		System.out.println(s);
     }
 }

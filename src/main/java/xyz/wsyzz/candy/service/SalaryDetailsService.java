@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
 import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by xucan on 2022/2/26.
  */
@@ -52,4 +55,17 @@ public interface SalaryDetailsService {
      * @return
      */
     SalaryDetails selectByPrimaryKey(Integer id);
+
+    /**
+     * 根据名称查询是否有重复的数据
+     * @param collect
+     * @return
+     */
+    List<String> checkSalaryDetailsName(Set<String> collect);
+
+    /**
+     * 批量插入工资详情数据
+     * @param datalist
+     */
+    int insertSalaryDetailsList(List<SalaryDetails> datalist);
 }

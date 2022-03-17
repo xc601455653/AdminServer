@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
 import xyz.wsyzz.candy.constant.Webconstant;
+import xyz.wsyzz.candy.entity.TO.BatchAddTO;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
 import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 import xyz.wsyzz.candy.service.SalaryDetailsService;
 import xyz.wsyzz.candy.util.ResultDataUtils;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by xucan on 2022/2/26.
@@ -38,6 +43,27 @@ public class SalaryDetailsController {
             return ResultDataUtils.exception("名称已存在");
         }
         salaryDetailsService.addSalaryDetails(salaryDetails);
+        return ResultDataUtils.success();
+    }
+
+    @ApiOperation("批量新增工资明细")
+    @PostMapping("addlist")
+    public ResultData addlist(@RequestBody BatchAddTO<SalaryDetails> batchAddTO) {
+        List<SalaryDetails> datalist = batchAddTO.getDatalist();
+        if (datalist == null || datalist.size() == 0) {
+            ResultDataUtils.exception("新增数据不能为空");
+        }
+        // 校验名称是否重复,先判断数据中是否有相同名称的，再用名称查询是否有重复数据
+        Set<String> collect = datalist.stream().map(item -> item.getName()).collect(Collectors.toSet());
+        if (collect.size() < datalist.size()) {
+            return ResultDataUtils.exception("导入数据中的名称不能重复");
+        }
+        List<String> names = salaryDetailsService.checkSalaryDetailsName(collect);
+        if (names.size() > 0) {
+            ResultDataUtils.exception(String.format("%s这些人员名称喝数据库中有重复，请处理",String.join(",",names)));
+        }
+        salaryDetailsService.insertSalaryDetailsList(datalist);
+
         return ResultDataUtils.success();
     }
 

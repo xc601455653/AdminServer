@@ -103,7 +103,7 @@ public class TxAdviceAspect {
      @Around("logPointCut()")
      public Object around(ProceedingJoinPoint point) throws Throwable {
      log.info(" @Around*******************"+"     dong    "+"********************** @Around");
-     return "";
+     return point.proceed();
      }
 
 }

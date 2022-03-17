@@ -2,6 +2,7 @@ package xyz.wsyzz.candy.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +23,14 @@ public class CommonToolController {
 
     @ApiOperation("发送邮件服务")
     @PostMapping("sendmail")
-    public ResultData sendMail(@RequestBody SendMailParamTO sendMailParamTO) {
-        if (StringUtils.isEmpty(sendMailParamTO.getToMailAddress())) {
+    public ResultData sendMail(@RequestBody SendMailParamTO sendMailParamTO) throws Exception{
+        if (CollectionUtils.isEmpty(sendMailParamTO.getAddressList())) {
             return ResultDataUtils.exception("邮箱地址不能为空");
         }
         if (StringUtils.isEmpty(sendMailParamTO.getContent())) {
             return ResultDataUtils.exception("内容不能为空");
         }
-        SendEmailUtils.sendTextEmail(sendMailParamTO.getToMailAddress(), sendMailParamTO.getContent());
+        SendEmailUtils.sendMailByParam(sendMailParamTO);
         return ResultDataUtils.success();
     }
 

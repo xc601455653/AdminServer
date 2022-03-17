@@ -15,9 +15,9 @@ spring:
       primary: mysql
       datasource:
         mysql:
-          url: jdbc:mysql://localhost:3306/adminserver?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+          url: jdbc:mysql://120.77.62.118:3306/adminserver?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
           username: root
-          password: a
+          password: abcd123456.
           driver-class-name: com.mysql.cj.jdbc.Driver
 #        oracle:
 #          url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
@@ -64,6 +64,9 @@ pagehelper:
     params: count=countSql
     auto-dialect: true
     auto-runtime-dialect: true
-
+#日志
+logging:
+  level:
+    xyz.wsyzz.candy.mapper: debug
 
 

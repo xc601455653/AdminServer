@@ -11,6 +11,11 @@ import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 import xyz.wsyzz.candy.mapper.SalaryDetailsMapper;
 import xyz.wsyzz.candy.service.SalaryDetailsService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Created by xucan on 2022/2/26.
  */
@@ -55,5 +60,22 @@ public class SalaryDetailsServiceImpl implements SalaryDetailsService {
     @Override
     public SalaryDetails selectByPrimaryKey(Integer id) {
         return salaryDetailsMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<String> checkSalaryDetailsName(Set<String> collect) {
+        if (collect.size() == 0) {
+            return new ArrayList<>();
+        }
+        Example example = new Example(SalaryDetails.class);
+        example.and().andIn("name", collect);
+        List<SalaryDetails> employees = salaryDetailsMapper.selectByExample(example);
+        List<String> stringList = employees.stream().map(item -> item.getName()).collect(Collectors.toList());
+        return stringList;
+    }
+
+    @Override
+    public int insertSalaryDetailsList(List<SalaryDetails> datalist) {
+        return salaryDetailsMapper.insertList(datalist);
     }
 }

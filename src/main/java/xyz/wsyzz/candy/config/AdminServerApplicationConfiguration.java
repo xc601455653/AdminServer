@@ -39,7 +39,8 @@ public class AdminServerApplicationConfiguration {
                 // 自行修改为自己的包路径
                 .apis(RequestHandlerSelectors.basePackage("xyz.wsyzz.candy"))
                 .paths(PathSelectors.any())
-                .build().host(InetAddress.getLocalHost().getHostAddress());
+                .build()
+                .host("120.77.62.118");
     }
 
     /**
