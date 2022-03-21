@@ -50,7 +50,7 @@ public class SendEmailUtils {
     private final static String HOST = "smtp.163.com";
 
     // SMTP邮件服务器默认端口
-    private final static String PORT = "25";
+    private final static String PORT = "465";
 
     // 是否要求身份认证
     private final static String IS_AUTH = "true";
@@ -64,6 +64,8 @@ public class SendEmailUtils {
     // 收件人
     private static String to = "601455653@qq.com";
 
+    private final static String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+
     // 初始化连接邮件服务器的会话信息
     private static Properties props = null;
 
@@ -75,6 +77,8 @@ public class SendEmailUtils {
         props.setProperty("mail.smtp.port", PORT);
         props.setProperty("mail.smtp.auth", IS_AUTH);
         props.setProperty("mail.debug",IS_ENABLED_DEBUG_MOD);
+        props.setProperty("mail.smtp.socketFactory.class",SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.port",PORT);
     }
 
 
@@ -478,7 +482,7 @@ public class SendEmailUtils {
         // 设置发送人
         message.setFrom(new InternetAddress(from,from,CHARSET));
         // 设置收件人
-        if (CollectionUtils.isEmpty(sendMailParamTO.getAddressList())) {
+        if (CollectionUtils.isEmpty(sendMailParamTO.getToMailAddressList())) {
             throw new RuntimeException("收件人不能为空");
         }
         ArrayList<InternetAddress> internetAddresses = new ArrayList<>();
@@ -489,13 +493,15 @@ public class SendEmailUtils {
         }
         message.setRecipients(RecipientType.TO, internetAddresses.toArray(new InternetAddress[internetAddresses.size()]));
         // 设置抄送
-        ArrayList<InternetAddress> internetAddressesCC = new ArrayList<>();
-        List<String> addressList = sendMailParamTO.getAddressList();
-        for (String address : addressList) {
-            InternetAddress internetAddress = new InternetAddress(address, address, CHARSET);
-            internetAddressesCC.add(internetAddress);
+        if (sendMailParamTO.getAddressList().size() > 0) {
+            ArrayList<InternetAddress> internetAddressesCC = new ArrayList<>();
+            List<String> addressList = sendMailParamTO.getAddressList();
+            for (String address : addressList) {
+                InternetAddress internetAddress = new InternetAddress(address, address, CHARSET);
+                internetAddressesCC.add(internetAddress);
+            }
+            message.setRecipients(RecipientType.CC, internetAddressesCC.toArray(new InternetAddress[internetAddressesCC.size()]));
         }
-        message.setRecipients(RecipientType.CC, internetAddressesCC.toArray(new InternetAddress[internetAddressesCC.size()]));
         // 设置密送
         // message.setRecipients(RecipientType.BCC, internetAddressesCC.toArray(new InternetAddress[internetAddressesCC.size()]));
         // 设置发送时间
