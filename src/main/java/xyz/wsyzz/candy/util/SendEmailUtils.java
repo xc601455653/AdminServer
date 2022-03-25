@@ -493,7 +493,7 @@ public class SendEmailUtils {
         }
         message.setRecipients(RecipientType.TO, internetAddresses.toArray(new InternetAddress[internetAddresses.size()]));
         // 设置抄送
-        if (sendMailParamTO.getAddressList().size() > 0) {
+        if (sendMailParamTO.getAddressList() != null && sendMailParamTO.getAddressList().size() > 0) {
             ArrayList<InternetAddress> internetAddressesCC = new ArrayList<>();
             List<String> addressList = sendMailParamTO.getAddressList();
             for (String address : addressList) {

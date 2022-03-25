@@ -62,7 +62,7 @@ public class EmployeeController {
         }
         List<String> names = employeeService.checkEmployeeName(collect);
         if (names.size() > 0) {
-            ResultDataUtils.exception(String.format("%s这些人员名称喝数据库中有重复，请处理",String.join(",",names)));
+            return ResultDataUtils.exception(String.format("%s这些人员名称喝数据库中有重复，请处理",String.join(",",names)));
         }
         employeeService.insertEmployeeList(datalist);
         return ResultDataUtils.success();

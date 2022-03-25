@@ -10,9 +10,15 @@ import javax.persistence.*;
 @Table(name = "t_employee")
 public class Employee implements Serializable {
     /**
+     * id
+     */
+    @Column(name = "id")
+    @ApiModelProperty(value = "序号")
+    @Id
+    private Integer id;
+    /**
      * 员工序号
      */
-    @Id
     @Column(name = "employee_id")
     @ApiModelProperty(value = "员工序号")
     private Integer employeeId;
@@ -41,6 +47,7 @@ public class Employee implements Serializable {
     /**
      * 姓名
      */
+    @ApiModelProperty(value = "姓名")
     @Column(name = "employee_name")
     private String employeeName;
 
@@ -330,6 +337,14 @@ public class Employee implements Serializable {
     private String remark;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * 获取员工序号

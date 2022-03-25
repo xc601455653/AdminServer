@@ -68,4 +68,11 @@ public interface EmployeeService {
      * @return
      */
     List<String> checkEmployeeName(Set<String> collect);
+
+    /**
+     * 根据名称查寻数据
+     * @param strings
+     * @return
+     */
+    List<Employee> selectByNames(List<String> strings);
 }

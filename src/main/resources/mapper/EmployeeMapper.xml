@@ -5,7 +5,8 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="to_company" property="toCompany" jdbcType="VARCHAR" />
     <result column="hs_sub_company" property="hsSubCompany" jdbcType="VARCHAR" />
     <result column="from_hr" property="fromHr" jdbcType="VARCHAR" />

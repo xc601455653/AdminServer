@@ -1,19 +1,19 @@
 package xyz.wsyzz.candy.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 import xyz.wsyzz.candy.entity.model.SalaryDetails;
 import xyz.wsyzz.candy.entity.TO.SalaryDetailsQueryTO;
 import xyz.wsyzz.candy.mapper.SalaryDetailsMapper;
 import xyz.wsyzz.candy.service.SalaryDetailsService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -68,7 +68,7 @@ public class SalaryDetailsServiceImpl implements SalaryDetailsService {
             return new ArrayList<>();
         }
         Example example = new Example(SalaryDetails.class);
-        example.and().andIn("name", collect);
+        example.and().andIn("name", collect).andEqualTo(Integer.valueOf(DateUtil.format(new Date(), "YYYYMM")));
         List<SalaryDetails> employees = salaryDetailsMapper.selectByExample(example);
         List<String> stringList = employees.stream().map(item -> item.getName()).collect(Collectors.toList());
         return stringList;
@@ -77,5 +77,16 @@ public class SalaryDetailsServiceImpl implements SalaryDetailsService {
     @Override
     public int insertSalaryDetailsList(List<SalaryDetails> datalist) {
         return salaryDetailsMapper.insertList(datalist);
+    }
+
+    @Override
+    public List<SalaryDetails> selectListByIds(String salaryDetailIds) {
+        if (StringUtils.isEmpty(salaryDetailIds)) {
+            return new ArrayList<>();
+        }
+        Example example = new Example(SalaryDetails.class);
+        example.and().andIn("id", Arrays.asList(salaryDetailIds.split(",")));
+        List<SalaryDetails> employees = salaryDetailsMapper.selectByExample(example);
+        return employees;
     }
 }

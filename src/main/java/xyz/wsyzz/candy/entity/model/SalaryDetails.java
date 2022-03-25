@@ -18,6 +18,20 @@ public class SalaryDetails implements Serializable {
     private Integer id;
 
     /**
+     * 明细当前日期
+     */
+    @ApiModelProperty(value = "明细当前日期")
+    @Column(name = "curr_date")
+    private Integer currDate;
+
+    /**
+     * 人员序号
+     */
+    @ApiModelProperty(value = "人员序号")
+    @Column(name = "employee_id")
+    private Integer employeeId;
+
+    /**
      * 服务公司
      */
     @ApiModelProperty(value = "服务公司")
@@ -1407,6 +1421,22 @@ public class SalaryDetails implements Serializable {
      */
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Integer getCurrDate() {
+        return currDate;
+    }
+
+    public void setCurrDate(Integer currDate) {
+        this.currDate = currDate;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     @Override

@@ -27,4 +27,6 @@ public class SendMailParamTO {
     private List<String> addressList;
     @ApiModelProperty(value = "附件地址")
     private String enclosurePath;
+
+    private String employeeName;
 }

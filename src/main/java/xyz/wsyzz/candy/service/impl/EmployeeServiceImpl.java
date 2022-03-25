@@ -77,4 +77,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<String> stringList = employees.stream().map(item -> item.getEmployeeName()).collect(Collectors.toList());
         return stringList;
     }
+
+    @Override
+    public List<Employee> selectByNames(List<String> strings) {
+        if (strings.size() == 0) {
+            return new ArrayList<>();
+        }
+        Example example = new Example(Employee.class);
+        example.and().andIn("employeeName", strings);
+        List<Employee> employees = employeeMapper.selectByExample(example);
+        return employees;
+    }
 }

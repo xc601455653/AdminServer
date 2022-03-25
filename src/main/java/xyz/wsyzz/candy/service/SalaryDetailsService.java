@@ -68,4 +68,11 @@ public interface SalaryDetailsService {
      * @param datalist
      */
     int insertSalaryDetailsList(List<SalaryDetails> datalist);
+
+    /**
+     * 根据id集合查询薪资明细
+     * @param salaryDetailIds
+     * @return
+     */
+    List<SalaryDetails> selectListByIds(String salaryDetailIds);
 }
