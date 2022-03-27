@@ -72,13 +72,13 @@ public class EmployeeController {
     @PostMapping("delete")
     public ResultData delete(@RequestBody Employee employee) {
         if (employee.getEmployeeId() == null) {
-            return ResultDataUtils.exception("EmployeeId不能为空");
+            return ResultDataUtils.exception("Id不能为空");
         }
-        Employee employeeInfo = employeeService.selectByPrimaryKey(employee.getEmployeeId());
+        Employee employeeInfo = employeeService.selectByPrimaryKey(employee.getId());
         if (employeeInfo == null) {
-            return ResultDataUtils.exception("EmployeeId数据不存在");
+            return ResultDataUtils.exception("数据不存在");
         }
-        employeeService.deleteById(employee.getEmployeeId());
+        employeeService.deleteById(employee.getId());
         return ResultDataUtils.success();
     }
 
@@ -86,11 +86,11 @@ public class EmployeeController {
     @PostMapping("update")
     public ResultData update(@RequestBody Employee employee) {
         if (employee.getEmployeeId() == null) {
-            return ResultDataUtils.exception("EmployeeId不能为空");
+            return ResultDataUtils.exception("Id不能为空");
         }
-        Employee employeeInfo = employeeService.selectByPrimaryKey(employee.getEmployeeId());
+        Employee employeeInfo = employeeService.selectByPrimaryKey(employee.getId());
         if (employeeInfo == null) {
-            return ResultDataUtils.exception("EmployeeId数据不存在");
+            return ResultDataUtils.exception("数据不存在");
         }
         employeeService.updateById(employee);
         return ResultDataUtils.success();

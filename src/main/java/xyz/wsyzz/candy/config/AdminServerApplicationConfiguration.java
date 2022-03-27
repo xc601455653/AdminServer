@@ -4,6 +4,7 @@ import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -29,6 +30,10 @@ import java.util.Properties;
  */
 @Configuration
 public class AdminServerApplicationConfiguration {
+
+    @Value("${file.upload-dir:./uploads}")
+    private String fileUploadPath;
+
     /**
      * swagger扫描配置
      * @return
@@ -41,8 +46,8 @@ public class AdminServerApplicationConfiguration {
                 // 自行修改为自己的包路径
                 .apis(RequestHandlerSelectors.basePackage("xyz.wsyzz.candy"))
                 .paths(PathSelectors.any())
-                .build()
-                .host("120.77.62.118");
+                .build();
+                //.host("120.77.62.118");
     }
 
     /**
@@ -133,5 +138,13 @@ public class AdminServerApplicationConfiguration {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(20);
         return threadPoolTaskScheduler;
+    }
+
+    public String getFileUploadPath() {
+        return fileUploadPath;
+    }
+
+    public void setFileUploadPath(String fileUploadPath) {
+        this.fileUploadPath = fileUploadPath;
     }
 }
