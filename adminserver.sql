@@ -124,7 +124,7 @@ DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role`  (
   `id` bigint(20) NOT NULL COMMENT '主键Id',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
-  `roel_id` bigint(20) NULL DEFAULT NULL COMMENT '角色id',
+  `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色id',
   `create_id` bigint(20) NULL DEFAULT NULL COMMENT '创建人id',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE

@@ -29,4 +29,30 @@
       </if>
     </where>
   </select>
+
+  <select id="getMenusByUser" parameterType="xyz.wsyzz.candy.entity.TO.UserQueryTO" resultType="xyz.wsyzz.candy.entity.model.Menu">
+    SELECT
+    m.id,
+    m.menu_name,
+    m.menu_desc,
+    m.menu_icon,
+    m.menu_cls,
+    m.route_name,
+    m.pid,
+    m.menu_level,
+    m.status
+    FROM
+    t_user u
+    INNER JOIN t_user_role ur ON u.id = ur.user_id
+    INNER JOIN t_role_menu rm ON ur.role_id = rm.role_id
+    INNER JOIN t_menu m ON rm.menu_id = m.id
+    where
+    u.status = 1 and m.status = 1
+    <if test="id != null">
+      and u.id = #{id}
+    </if>
+    <if test="userName != null and userName != ''">
+      and u.user_name = #{userName}
+    </if>
+  </select>
 </mapper>

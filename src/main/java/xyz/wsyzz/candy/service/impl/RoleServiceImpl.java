@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
         userRole.setUserId(id);
         List<UserRole> select = userRoleMapper.select(userRole);
         if(CollectionUtils.isEmpty(select)) return new HashSet<>();
-        List<Long> roleIds = select.stream().map(e -> e.getRoelId()).collect(Collectors.toList());
+        List<Long> roleIds = select.stream().map(e -> e.getRoleId()).collect(Collectors.toList());
         List<Role> roles = roleMapper.selectByIds(roleIds);
         return new HashSet<>(roles);
     }

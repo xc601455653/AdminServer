@@ -21,8 +21,8 @@ public class UserRole implements Serializable {
     /**
      * 角色id
      */
-    @Column(name = "roel_id")
-    private Long roelId;
+    @Column(name = "role_id")
+    private Long roleId;
 
     /**
      * 创建人id
@@ -79,8 +79,8 @@ public class UserRole implements Serializable {
      *
      * @return roel_id - 角色id
      */
-    public Long getRoelId() {
-        return roelId;
+    public Long getRoleId() {
+        return roleId;
     }
 
     /**
@@ -88,8 +88,8 @@ public class UserRole implements Serializable {
      *
      * @param roelId 角色id
      */
-    public void setRoelId(Long roelId) {
-        this.roelId = roelId;
+    public void setRoleId(Long roelId) {
+        this.roleId = roelId;
     }
 
     /**
@@ -136,7 +136,7 @@ public class UserRole implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", roelId=").append(roelId);
+        sb.append(", roelId=").append(roleId);
         sb.append(", createId=").append(createId);
         sb.append(", createTime=").append(createTime);
         sb.append("]");

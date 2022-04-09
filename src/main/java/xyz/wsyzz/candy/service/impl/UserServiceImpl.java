@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import xyz.wsyzz.candy.entity.TO.UserQueryTO;
+import xyz.wsyzz.candy.entity.model.Menu;
 import xyz.wsyzz.candy.entity.model.User;
+import xyz.wsyzz.candy.mapper.MenuMapper;
 import xyz.wsyzz.candy.mapper.UserMapper;
 import xyz.wsyzz.candy.service.UserService;
+import xyz.wsyzz.candy.util.CommonUtils;
 
 import java.util.List;
 
@@ -20,6 +23,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
     public User findByUsername(String userName) {
@@ -41,5 +47,12 @@ public class UserServiceImpl implements UserService{
         example.and().andEqualTo("id", queryTO.getId()).andLike("userName", "%" + queryTO.getUserName() + "%");
         List<User> userList = userMapper.selectByExample(example);
         return page.toPageInfo();
+    }
+
+    @Override
+    public List<Menu> getMenusByUser(UserQueryTO queryTO) {
+        List<Menu> data = menuMapper.getMenusByUser(queryTO);
+        List<Menu> treeData = CommonUtils.buildTreeData(data, Menu::getParamId, Menu::getParamPId, item -> item::setChildren, 0L);
+        return treeData;
     }
 }

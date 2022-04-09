@@ -2,6 +2,7 @@ package xyz.wsyzz.candy.entity.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "t_menu")
@@ -316,6 +317,23 @@ public class Menu implements Serializable {
      */
     public void setUpdateId(Long updateId) {
         this.updateId = updateId;
+    }
+
+    public static Long getParamId(Menu menu) {
+        return menu.getId();
+    }
+    public static Long getParamPId(Menu menu) {
+        return menu.getPid();
+    }
+
+    public List<Menu> children;
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
     }
 
     @Override
