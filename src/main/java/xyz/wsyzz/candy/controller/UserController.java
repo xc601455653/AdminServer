@@ -31,6 +31,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("getstring")
+    public String getstring (){
+        return "================";
+    }
+
     @ApiOperation("新增系统用户")
     @PostMapping("add")
     public ResultData addUser(@RequestBody User user){

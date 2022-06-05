@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wsyzz.candy.mapper.EmpSalaryinfoMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wsyzz.candy.entity.model.EmpSalaryinfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="base_salary" property="baseSalary" jdbcType="DECIMAL" />
+    <result column="position_salary" property="positionSalary" jdbcType="DECIMAL" />
+    <result column="achievement_salary" property="achievementSalary" jdbcType="DECIMAL" />
+    <result column="trial_salary" property="trialSalary" jdbcType="DECIMAL" />
+    <result column="regular_salary" property="regularSalary" jdbcType="DECIMAL" />
+    <result column="endowment_insurance" property="endowmentInsurance" jdbcType="DECIMAL" />
+    <result column="medical_insurance" property="medicalInsurance" jdbcType="DECIMAL" />
+    <result column="unemployment_insurance" property="unemploymentInsurance" jdbcType="DECIMAL" />
+    <result column="commfund" property="commfund" jdbcType="DECIMAL" />
+  </resultMap>
+</mapper>

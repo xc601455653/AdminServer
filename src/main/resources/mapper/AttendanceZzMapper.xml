@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wsyzz.candy.mapper.AttendanceZzMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wsyzz.candy.entity.model.AttendanceZz" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <id column="record_date" property="recordDate" jdbcType="INTEGER" />
+    <result column="job_no" property="jobNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cumulative_absence" property="cumulativeAbsence" jdbcType="DECIMAL" />
+    <result column="compassionate_leave" property="compassionateLeave" jdbcType="DECIMAL" />
+    <result column="annual_leave" property="annualLeave" jdbcType="DECIMAL" />
+    <result column="sick_leave" property="sickLeave" jdbcType="DECIMAL" />
+    <result column="compensatory_leave" property="compensatoryLeave" jdbcType="DECIMAL" />
+    <result column="maternity_leave" property="maternityLeave" jdbcType="DECIMAL" />
+    <result column="marriage_holiday" property="marriageHoliday" jdbcType="DECIMAL" />
+    <result column="not_join" property="notJoin" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="data_from" property="dataFrom" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

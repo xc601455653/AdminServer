@@ -2,6 +2,7 @@ package xyz.wsyzz.candy.util;
 
 import xyz.wsyzz.candy.entity.VO.MenuTreeDataVO;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -77,6 +78,8 @@ public class CommonUtils {
                 });
             }
         };
+        CopyOnWriteArrayList<Object> objects = new CopyOnWriteArrayList<>();
+        objects.add("");
         List<MenuTreeDataVO> menuTreeDataVOS1 = buildTreeData(menuTreeDataVOS, MenuTreeDataVO::getParamId , MenuTreeDataVO::getParamPid, item -> item::setChildren, 0L);
         System.out.println(menuTreeDataVOS1);
     }

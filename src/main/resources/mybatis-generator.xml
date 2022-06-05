@@ -61,13 +61,13 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表  多个表示,可用多个table标签-->
-        <table schema="adminserver" tableName="t_dict" domainObjectName="Dict"></table>
-        <table schema="adminserver" tableName="t_dict_item" domainObjectName="DictItem"></table>
-        <!--<table schema="adminserver" tableName="t_user" domainObjectName="User"></table>-->
-        <!--<table schema="adminserver" tableName="t_role" domainObjectName="Role"></table>-->
-        <!--<table schema="adminserver" tableName="t_menu" domainObjectName="Menu"></table>-->
-        <!--<table schema="adminserver" tableName="t_user_role" domainObjectName="UserRole"></table>-->
-        <!--<table schema="adminserver" tableName="t_role_menu" domainObjectName="RoleMenu"></table>-->
-        <!--<table schema="adminserver" tableName="t_dictionary" domainObjectName="Dictionary"></table>-->
+        <table schema="adminserver" tableName="t_attendance_kh" domainObjectName="AttendanceKh"></table>
+        <table schema="adminserver" tableName="t_attendance_zr" domainObjectName="AttendanceZr"></table>
+        <table schema="adminserver" tableName="t_attendance_zz" domainObjectName="AttendanceZz"></table>
+        <table schema="adminserver" tableName="t_emp_salaryinfo" domainObjectName="EmpSalaryinfo"></table>
+        <table schema="adminserver" tableName="t_emp_settlement" domainObjectName="EmpSettlement"></table>
+        <table schema="adminserver" tableName="t_employeebasicinfo" domainObjectName="Employeebasicinfo"></table>
+        <table schema="adminserver" tableName="t_fiveandonefund" domainObjectName="Fiveandonefund"></table>
+        <table schema="adminserver" tableName="t_workdate" domainObjectName="Workdate"></table>
     </context>
 </generatorConfiguration>

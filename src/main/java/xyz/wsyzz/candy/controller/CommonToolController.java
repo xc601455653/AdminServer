@@ -88,7 +88,7 @@ public class CommonToolController {
 
     @ApiOperation("文件下载服务")
     @GetMapping("downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName,@RequestParam(required = false) String down, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileService.loadFileAsResource(fileName);
         // Try to determine file's content type
@@ -102,9 +102,13 @@ public class CommonToolController {
         if(contentType == null) {
             contentType = "application/octet-stream";
         }
+        String contentDisposition = "inline";
+        if (down != null && down != "") {
+            contentDisposition = "attachment";
+        }
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition+"; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
 

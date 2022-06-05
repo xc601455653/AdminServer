@@ -8,6 +8,9 @@ spring:
       poll-interval: 3000ms
   application:
     name: candy
+  cloud:
+      zookeeper:
+        connect-string: 120.77.62.118:2181
   autoconfigure:
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   datasource:

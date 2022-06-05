@@ -18,17 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.wsyzz.candy.util.FreeMarkerUtils;
-
 import java.io.*;
 import java.util.*;
-
-import static jdk.nashorn.internal.objects.Global.undefined;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AdminServerApplicationTests {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 //		String template = "你好${姓名!'未知'}，今天是${date?string('yyyy-MM-dd')}"; //变量参考freemarker语法
 //
 //		Map m = new HashMap();

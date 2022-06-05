@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wsyzz.candy.mapper.EmpSettlementMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wsyzz.candy.entity.model.EmpSettlement" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="from_hr" property="fromHr" jdbcType="VARCHAR" />
+    <result column="offer_salary" property="offerSalary" jdbcType="DECIMAL" />
+    <result column="position_level" property="positionLevel" jdbcType="VARCHAR" />
+    <result column="business_price" property="businessPrice" jdbcType="DECIMAL" />
+    <result column="settlement_cycle" property="settlementCycle" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

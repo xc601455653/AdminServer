@@ -6,31 +6,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
-import xyz.wsyzz.candy.entity.model.DictItem;
-import xyz.wsyzz.candy.service.DictItemService;
+import xyz.wsyzz.candy.entity.model.Organization;
+import xyz.wsyzz.candy.service.OrganizationService;
 import xyz.wsyzz.candy.util.ResultDataUtils;
 
 import java.util.List;
 
 /**
- * Created by xucan on 2022/3/27.
+ * Created by xucan on 2022/5/15.
  */
-
 @RestController
-@RequestMapping("dictitem")
-@Api(description = "字典子项服务", tags = {"DictItemController"})
-public class DictItemController {
+@RequestMapping("organization")
+@Api(description = "组织管理服务", tags = {"OrganizationController"})
+public class OrganizationController {
 
     @Autowired
-    private DictItemService dictItemService;
+    private OrganizationService organizationService;
 
     @PostMapping("list")
-    public ResultData list(DictItem dictItemt) {
-        if (dictItemt == null) {
-            dictItemt = new DictItem();
+    public ResultData list(Organization organization) {
+        if (organization == null) {
+            organization = new Organization();
         }
-        List<DictItem> list = dictItemService.getListByEntity(dictItemt);
+        List<Organization> list = organizationService.getListByEntity(organization);
         return ResultDataUtils.success(list);
     }
-
 }
