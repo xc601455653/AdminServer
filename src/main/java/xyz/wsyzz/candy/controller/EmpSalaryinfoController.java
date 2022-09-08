@@ -3,6 +3,7 @@ package xyz.wsyzz.candy.controller;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
@@ -22,19 +23,19 @@ public class EmpSalaryinfoController {
     private EmpSalaryinfoService empSalaryinfoService;
 
     @PostMapping("insert")
-    public ResultData insert(EmpSalaryinfo empSalaryinfo) {
+    public ResultData insert(@RequestBody EmpSalaryinfo empSalaryinfo) {
         int insert = empSalaryinfoService.insert(empSalaryinfo);
         return ResultDataUtils.success(insert);
     }
 
     @PostMapping("update")
-    public ResultData update(EmpSalaryinfo empSalaryinfo) {
+    public ResultData update(@RequestBody EmpSalaryinfo empSalaryinfo) {
         int update = empSalaryinfoService.update(empSalaryinfo);
         return ResultDataUtils.success(update);
     }
 
     @PostMapping("list")
-    public ResultData list(EmpSalaryinfoQueryTO empSalaryinfoQueryTO) {
+    public ResultData list(@RequestBody EmpSalaryinfoQueryTO empSalaryinfoQueryTO) {
         PageInfo<EmpSalaryinfo> list = empSalaryinfoService.list(empSalaryinfoQueryTO);
         return ResultDataUtils.success(list);
     }

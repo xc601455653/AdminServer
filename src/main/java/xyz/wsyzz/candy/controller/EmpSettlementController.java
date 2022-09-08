@@ -3,6 +3,7 @@ package xyz.wsyzz.candy.controller;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wsyzz.candy.common.ResultData;
@@ -23,19 +24,19 @@ public class EmpSettlementController {
 
 
     @PostMapping("insert")
-    public ResultData insert(EmpSettlement empSettlement) {
+    public ResultData insert(@RequestBody EmpSettlement empSettlement) {
         int insert = empSettlementService.insert(empSettlement);
         return ResultDataUtils.success(insert);
     }
 
     @PostMapping("update")
-    public ResultData update(EmpSettlement empSettlement) {
+    public ResultData update(@RequestBody EmpSettlement empSettlement) {
         int update = empSettlementService.update(empSettlement);
         return ResultDataUtils.success(update);
     }
 
     @PostMapping("list")
-    public ResultData list(EmpSettlementQueryTO empSettlementQueryTO) {
+    public ResultData list(@RequestBody EmpSettlementQueryTO empSettlementQueryTO) {
         PageInfo<EmpSettlement> list = empSettlementService.list(empSettlementQueryTO);
         return ResultDataUtils.success(list);
     }
